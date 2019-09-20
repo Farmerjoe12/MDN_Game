@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Gamedev Canvas Workshop</title>
-    <style>
-        * { padding: 0; margin: 0; }
-        canvas { background: #eee; display: block; margin: 0 auto; }
-    </style>
+    <link rel='stylesheet' href='style.css'/>
 </head>
 <body>
     <canvas id="myCanvas" width="480" height="320"></canvas>
@@ -236,9 +233,27 @@
             ctx.fillText("Lives: " + lives, canvas.width-65, 20);
         }
 
+        function getTouchPos(canvasDom, touchEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: touchEvent.touches[0].clientX - rect.left,
+                y: touchEvent.touches[0].clientY - rect.top
+            };
+        }
+
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
         document.addEventListener("mousemove", mouseMoveHandler, false);
+        document.addEventListener("touchstart", function (e) {
+            mousePos = getTouchPos(canvas, e);
+            var touch = e.touches[0];
+            var mouseEvent = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+                canvas.dispatchEvent(mouseEvent);
+                
+        }, false);
         draw();
         
     </script>
