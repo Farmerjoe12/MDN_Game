@@ -246,7 +246,14 @@
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
         document.addEventListener("mousemove", mouseMoveHandler, false);
-        document.addEventListener("touchmove", function (e) {
+
+        document.body.addEventListener("touchmove", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+
+        canvas.addEventListener("touchmove", function (e) {
             mousePos = getTouchPos(canvas, e);
             var touch = e.touches[0];
             var mouseEvent = new MouseEvent("mousemove", {
