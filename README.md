@@ -1,11 +1,11 @@
-## A Breakout clone written in HTML, CSS, and JavaScript
+# A Breakout clone written in HTML, CSS, and JavaScript
 
 The core game logic is written in JavaScript, and the game takes place inside an HTML canvas.
 
-# From the tutorial on the Mozilla Developer Network
+## From the tutorial on the Mozilla Developer Network
 
-# Some additions I'd like to make
+## Some additions I'd like to make
 
-Changes to ball/paddle physics
+- Changes to ball/paddle physics
 
-Adding menus and other levels
+- Adding menus and other levels
