@@ -115,8 +115,8 @@ function draw() {
     drawLives();
 
     // move the ball            
-    // ballX += ball_dx;
-    // ballY += ball_dy;  
+    ballX += ball_dx;
+    ballY += ball_dy;  
     
     // collision detection on top of screen
     if (ballY + ball_dy < ballRadius) {
