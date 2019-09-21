@@ -2,8 +2,12 @@
 
 The core game logic is written in JavaScript, and the game takes place inside an HTML canvas. The intial game code came from a tutorial on the Mozilla Developers Network.
 
-## Some additions I'd like to make
+## Interesting things I've learned
 
-- Changes to ball/paddle physics
+- Using the HTML5 Canvas
+- Creating a game for the web
+- More in depth Javascript
+- Working with HTML/JS event handling through mouse, keyboard, and touch
 
-- Adding menus and other levels
+## Check it out
+https://Farmerjoe12.github.io/MDN_Game
