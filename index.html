@@ -98,6 +98,18 @@
                 }
             }
         }
+
+        function drawScore() {
+            ctx.font = "16px Arial";
+            ctx.fillStyle = color;
+            ctx.fillText("Score: " + score, 8, 20);
+        }
+
+        function drawLives() {
+            ctx.font = "16px Arial";
+            ctx.fillStyle = color;
+            ctx.fillText("Lives: " + lives, canvas.width-65, 20);
+        }
         
         /** Update the canvas **/
         function draw() {     
@@ -116,10 +128,10 @@
             drawLives();
 
             // move the ball
-            /**
+            
             ballX += ball_dx;
             ballY += ball_dy;  
-            **/
+            
             // collision detection on top of screen
             if (ballY + ball_dy < ballRadius) {
                 ball_dy *= -1;
@@ -178,24 +190,6 @@
             requestAnimationFrame(draw);
         }
 
-        /** Handler to set key press flags when buttons are pressed down **/
-        function keyDownHandler(e) {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                rightPressed = true;
-            } else if (e.key == "Left" || e.key == "ArrowLeft") {
-                leftPressed = true;
-            }
-        }
-
-        /** Handler to set key press flags when buttons are released **/
-        function keyUpHandler(e) {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                rightPressed = false;
-            } else if (e.key == "Left" || e.key == "ArrowLeft") {
-                leftPressed = false;
-            }
-        }
-
         /** Detects collision between ball and bricks **/
         function collisionDetection() {
             for (var c = 0; c < brickColumnCount; c++) {
@@ -216,41 +210,40 @@
             }
         }
 
-        function drawScore() {
-            ctx.font = "16px Arial";
-            ctx.fillStyle = color;
-            ctx.fillText("Score: " + score, 8, 20);
-        }
+        /** Event listener for key press **/
+        document.addEventListener("keydown", function (e) {
+            if (e.key == "Right" || e.key == "ArrowRight") {
+                rightPressed = true;
+            } else if (e.key == "Left" || e.key == "ArrowLeft") {
+                leftPressed = true;
+            }
+        }, false);
 
-        function drawLives() {
-            ctx.font = "16px Arial";
-            ctx.fillStyle = color;
-            ctx.fillText("Lives: " + lives, canvas.width-65, 20);
-        }
+        /** Event listener for key release **/
+        document.addEventListener("keyup", function (e) {
+            if (e.key == "Right" || e.key == "ArrowRight") {
+                rightPressed = false;
+            } else if (e.key == "Left" || e.key == "ArrowLeft") {
+                leftPressed = false;
+            }
+        }, false);
 
-        function getTouchPos(canvasDom, touchEvent) {
-            var rect = canvasDom.getBoundingClientRect();
-            return {
-                x: touchEvent.touches[0].clientX - rect.left,
-                y: touchEvent.touches[0].clientY - rect.top
-            };
-        }
-
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
-        canvas.addEventListener("mousemove", function(e) {
+        /** Event listener for mouse movement **/
+        canvas.addEventListener("mousemove", function (e) {
             var relativeX = e.clientX - canvas.offsetLeft;
             if (relativeX > 0 && relativeX < canvas.width) {
                 paddleX = relativeX - paddleWidth/2;
             }
         }, false);
-        
+
+        /** Event listener to prevent scrolling during touch movement **/
         document.body.addEventListener("touchmove", function (e) {
-            if (e.target == canvas) {
+            if (e.target == canvas || e.target == document) {
                 e.preventDefault();
             }
         }, false);
 
+        /** Event listener for touch movement **/
         canvas.addEventListener("touchmove", function (e) {
             mousePos = getTouchPos(canvas, e);
             var touch = e.touches[0];
@@ -261,6 +254,17 @@
                 canvas.dispatchEvent(mouseEvent);
                 
         }, false);
+
+        /** Helper function for handling touch events **/
+        function getTouchPos(canvasDom, touchEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: touchEvent.touches[0].clientX - rect.left,
+                y: touchEvent.touches[0].clientY - rect.top
+            };
+        }
+
+        // draw the canvas and everything else
         draw();
         
     </script>
